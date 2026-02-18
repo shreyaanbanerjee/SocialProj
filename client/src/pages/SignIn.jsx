@@ -157,9 +157,8 @@ const SignIn = () => {
             <button
               disabled={loading}
               onClick={handleSubmit}
-              className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
-                loading ? "cursor-not-allowed opacity-50" : ""
-              }`}
+              className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${loading ? "cursor-not-allowed opacity-50" : ""
+                }`}
             >
               {loading ? (
                 <ButtonLoadingSpinner loadingText={loadingText} />
@@ -171,7 +170,7 @@ const SignIn = () => {
         </form>
         <span className="flex items-center justify-center py-4 text-sm text-gray-600 ">
           <a
-            href="https://github.com/nz-m/SocialEcho"
+            href="https://github.com/shreyaanbanerjee/SocialProj"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center hover:text-blue-500"

@@ -265,9 +265,8 @@ const SignUpNew = () => {
             <button
               disabled={loading}
               type="submit"
-              className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
-                loading ? "cursor-not-allowed opacity-50" : ""
-              }`}
+              className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${loading ? "cursor-not-allowed opacity-50" : ""
+                }`}
             >
               {loading ? (
                 <ButtonLoadingSpinner loadingText={loadingText} />
@@ -283,7 +282,7 @@ const SignUpNew = () => {
                 </p>
               ) : (
                 <p className="mt-2 cursor-pointer rounded-lg border px-4 py-3 text-center text-sm font-semibold">
-                  Context-Based Authentication is disabled
+                  Context-Based Authentication is enabled
                 </p>
               )}
             </div>
