@@ -9,6 +9,7 @@
 
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const adminRoutes = require("./routes/admin.route");
 const userRoutes = require("./routes/user.route");
 const postRoutes = require("./routes/post.route");
@@ -48,7 +49,19 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Session middleware for OAuth
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
+  })
+);
+
 app.use(passport.initialize());
+app.use(passport.session());
 require("./config/passport.js");
 
 app.get("/server-status", (req, res) => {
@@ -57,11 +70,11 @@ app.get("/server-status", (req, res) => {
 
 app.get("/search", decodeToken, search);
 
-app.use("/auth", contextAuthRoutes);
-app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
-app.use("/communities", communityRoutes);
-app.use("/admin", adminRoutes);
+app.use("/api/auth", contextAuthRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/communities", communityRoutes);
+app.use("/api/admin", adminRoutes);
 
 process.on("SIGINT", async () => {
   try {

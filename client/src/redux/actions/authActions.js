@@ -121,6 +121,33 @@ export const signInAction = (formData, navigate) => async (dispatch) => {
   }
 };
 
+export const handleGoogleCallback = (accessToken, refreshToken, email, navigate) => async (dispatch) => {
+  try {
+    // Create a minimal user object from the tokens
+    // The full user data will be fetched on first request with the access token
+    const profile = {
+      user: { email },
+      accessToken,
+      refreshToken,
+      accessTokenUpdatedAt: new Date(),
+    };
+    
+    localStorage.setItem("profile", JSON.stringify(profile));
+    dispatch({
+      type: types.SIGNIN_SUCCESS,
+      payload: profile,
+    });
+    
+    navigate("/");
+  } catch (error) {
+    dispatch({
+      type: types.SIGNIN_FAIL,
+      payload: "Authentication failed. Please try again.",
+    });
+    navigate("/signin");
+  }
+};
+
 export const getModProfileAction = () => async (dispatch) => {
   try {
     const { error, data } = await api.getModProfile();

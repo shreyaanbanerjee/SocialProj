@@ -19,35 +19,23 @@ const AppContainer = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const checkServerStatus = async () => {
+    const initializeApp = async () => {
       try {
+        // Check server status first
         await axios.get("/server-status");
-      } catch (err) {
-        setError("Server is down. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkServerStatus();
-  }, []);
-
-  // Asynchronously initialize the Redux store, including data fetching and authentication,
-  // while displaying a loading indicator. Making sure that the store is initialized with credentials and data before rendering the app.
-
-  useEffect(() => {
-    const initializeStore = async () => {
-      try {
+        
+        // Then initialize store
         const appStore = await createAppStore();
         setStore(appStore);
       } catch (err) {
-        setError(`Error initializing the app: ${err.message}`);
+        console.error("Initialization error:", err);
+        setError("Server is down or app failed to initialize. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
-    initializeStore();
+    initializeApp();
   }, []);
 
   if (loading || error) {

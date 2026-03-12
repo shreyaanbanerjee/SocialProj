@@ -11,6 +11,7 @@ import AllCommunities from "./pages/AllCommunities";
 import MyCommunities from "./pages/MyCommunities";
 import Following from "./pages/Following";
 import SignUp from "./pages/SignUp";
+import GoogleAuthCallback from "./pages/GoogleAuthCallback";
 
 const ReportedPost = lazy(() => import("./pages/ReportedPost"));
 const Moderator = lazy(() => import("./pages/Moderator"));
@@ -90,6 +91,10 @@ export const publicRoutes = [
   {
     path: "/auth/verify",
     element: <VerifyEmail />,
+  },
+  {
+    path: "/auth/google-callback",
+    element: <GoogleAuthCallback />,
   },
   {
     path: "/email-verified",

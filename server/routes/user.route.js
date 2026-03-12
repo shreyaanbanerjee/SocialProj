@@ -14,6 +14,10 @@ const {
 } = require("../controllers/user.controller");
 
 const {
+  googleAuthCallback,
+} = require("../controllers/google-auth.controller");
+
+const {
   getPublicUsers,
   followUser,
   getPublicUser,
@@ -71,5 +75,17 @@ router.put("/:id", requireAuth, decodeToken, updateInfo);
 router.use(followLimiter);
 router.patch("/:id/follow", requireAuth, decodeToken, followUser);
 router.patch("/:id/unfollow", requireAuth, decodeToken, unfollowUser);
+
+// Google OAuth routes
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { session: false }),
+  googleAuthCallback
+);
 
 module.exports = router;

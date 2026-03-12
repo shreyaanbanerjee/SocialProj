@@ -3,6 +3,7 @@ const User = require("../models/user.model");
 const Token = require("../models/token.model");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const opts = {};
 const jwt = require("jsonwebtoken");
@@ -56,3 +57,65 @@ passport.use(
     }
   })
 );
+
+// Google OAuth 2.0 Strategy
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:4000/api/users/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const { email, given_name, family_name, picture } = profile._json;
+        
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        
+        if (!user) {
+          // Create new user if doesn't exist
+          const fullName = `${given_name || ""} ${family_name || ""}`.trim() || email.split("@")[0];
+          
+          user = new User({
+            email,
+            name: fullName,
+            username: email.split("@")[0],
+            avatar: picture || "",
+            password: "", // No password for OAuth users
+            isEmailVerified: true, // Google verified the email
+            googleId: profile.id,
+          });
+          await user.save();
+        } else {
+          // Update googleId if not already linked
+          if (!user.googleId) {
+            user.googleId = profile.id;
+            user.isEmailVerified = true;
+            if (!user.avatar && picture) {
+              user.avatar = picture;
+            }
+            await user.save();
+          }
+        }
+        
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
+      }
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
