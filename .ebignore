@@ -1,0 +1,8 @@
+.env
+node_modules/
+.ebignore
+.elasticbeanstalk/
+*.log
+.DS_Store
+*.swp
+*.swo
