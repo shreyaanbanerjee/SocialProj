@@ -27,19 +27,19 @@ eb init -p node.js-18 socialecho-api --region us-east-1
 # Create environment (one-time, takes ~10 mins)
 eb create socialecho-api-env --instance-type t3.micro
 
-# Set environment variables
+# Set environment variables (replace values with your actual credentials)
 eb setenv \
   NODE_ENV=production \
-  MONGODB_URI="mongodb+srv://shre6745_db_user:wrV8Vdc0CeoOe1Sx@cluster0.8wiksz4.mongodb.net/?appName=Cluster0" \
-  SECRET="supersecretkey" \
-  REFRESH_SECRET="supersecretrefreshkey" \
+  MONGODB_URI="your_mongodb_connection_string" \
+  SECRET="your_secret_key" \
+  REFRESH_SECRET="your_refresh_secret" \
   SESSION_SECRET="random-secret-string-here" \
-  GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID" \
-  GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET" \
+  GOOGLE_CLIENT_ID="your_google_client_id" \
+  GOOGLE_CLIENT_SECRET="your_google_client_secret" \
   EMAIL="your_email@gmail.com" \
-  PASSWORD="ngmw mbpx dekh aywm" \
-  TEXTRAZOR_API_KEY="0ec4a5c5606380a3a3e19d5fd466bae49698cf75303048d7b3eef167" \
-  INTERFACE_API_KEY="YOUR_HUGGINGFACE_TOKEN"
+  PASSWORD="your_app_password" \
+  TEXTRAZOR_API_KEY="your_textrazor_api_key" \
+  INTERFACE_API_KEY="your_huggingface_token"
 
 # Get your EB domain
 eb status

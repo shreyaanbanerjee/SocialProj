@@ -63,12 +63,12 @@ eb setenv \
   MONGODB_URI="your_mongodb_uri" \
   SECRET="your_secret_key" \
   REFRESH_SECRET="your_refresh_secret" \
-  GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID" \
-  GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET" \
+  GOOGLE_CLIENT_ID="your_google_client_id" \
+  GOOGLE_CLIENT_SECRET="your_google_client_secret" \
   EMAIL="your_email@gmail.com" \
   PASSWORD="your_app_password" \
-  TEXTRAZOR_API_KEY="your_key" \
-  INTERFACE_API_KEY="your_key" \
+  TEXTRAZOR_API_KEY="your_textrazor_key" \
+  INTERFACE_API_KEY="your_huggingface_key" \
   SESSION_SECRET="generate_random_secret" \
   FRONTEND_URL="https://yourdomain.com"
 ```

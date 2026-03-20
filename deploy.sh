@@ -53,14 +53,19 @@ case $STEP in
         read SESSION_SECRET
         
         cd server
+        echo "Enter your GOOGLE_CLIENT_ID: "
+        read GOOGLE_CLIENT_ID
+        echo "Enter your GOOGLE_CLIENT_SECRET: "
+        read GOOGLE_CLIENT_SECRET
+        
         eb setenv \
             NODE_ENV=production \
             MONGODB_URI="$MONGODB_URI" \
             SECRET="$SECRET" \
             REFRESH_SECRET="$REFRESH_SECRET" \
             SESSION_SECRET="$SESSION_SECRET" \
-            GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID" \
-            GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+            GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID" \
+            GOOGLE_CLIENT_SECRET="$GOOGLE_CLIENT_SECRET"
         ;;
     5)
         echo "Step 5: Deploy Backend"
